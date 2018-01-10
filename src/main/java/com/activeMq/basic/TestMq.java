@@ -36,7 +36,7 @@ public class TestMq {
         public void run() {
             while(true){
                 try {
-                    producter.sendMessage("Jaycekon-MQ");
+                    producter.sendMessage("LiJinTest-MQ");
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -55,7 +55,7 @@ public class TestMq {
         public void run() {
             while(true){
                 try {
-                	comsumer.getMessage("Jaycekon-MQ");
+                	comsumer.getMessage("LiJinTest-MQ");
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
