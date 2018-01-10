@@ -10,8 +10,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-@Service
-public class ProducerServiceImpl implements ProducerService {
+@Service("queue")
+public class QueueProducerServiceImpl implements ProducerService {
  
     @Resource
     private JmsTemplate jmsQueueTemplate;

@@ -2,12 +2,10 @@ package com.activeMq.spring.controller;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 import com.activeMq.spring.service.ProducerService;
@@ -15,12 +13,14 @@ import com.activeMq.spring.service.ProducerService;
 @Component
 public class MainController {
 	@Autowired
-	private ProducerService producerService;
+	@Qualifier("queue")
+	private ProducerService producerService_queue;
+	@Autowired
+	@Qualifier("topic")
+	private ProducerService producerService_topic;
 
-	@Resource
-	private JmsTemplate jmsQueueTemplate;
-
-	private static final String destinationName = "test.queue";
+	private static final String destinationQueueName = "test.queue";
+	private static final String destinationTopicName = "test.topic";
 	/*
 	 * @Autowired
 	 * @Qualifier("queueDestination") 
@@ -30,12 +30,11 @@ public class MainController {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "classpath:/spring/app.xml" });
 		MainController app = context.getBean(MainController.class);
-		app.run();
+		app.runQueue();
+		app.runTopic();
 	}
 
-	private void run() {
-		jmsQueueTemplate.getConnectionFactory();
-		
+	private void runQueue() {
 		new Thread(new Runnable() {
 			
 			@Override
@@ -43,7 +42,7 @@ public class MainController {
 				while(true){
 					int num = count.incrementAndGet();
 					// 发送更新数据请求
-					producerService.sendMessage(destinationName, "my name is lijin, produce:" + num);
+					producerService_queue.sendMessage(destinationQueueName, "my name is lijin, produce:" + num);
 					
 					try {
 						Thread.sleep(1000);
@@ -53,7 +52,26 @@ public class MainController {
 				}
 			}
 		}).start();
-		
+	}
+	
+	private void runTopic() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+					int num = count.incrementAndGet();
+					// 发送更新数据请求
+					producerService_topic.sendMessage(destinationTopicName, "my name is lijin, produce:" + num);
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 	
 	
