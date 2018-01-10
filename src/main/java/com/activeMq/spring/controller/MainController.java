@@ -30,7 +30,7 @@ public class MainController {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "classpath:/spring/app.xml" });
 		MainController app = context.getBean(MainController.class);
-		app.runQueue();
+//		app.runQueue(); //分别注释看效果
 		app.runTopic();
 	}
 
