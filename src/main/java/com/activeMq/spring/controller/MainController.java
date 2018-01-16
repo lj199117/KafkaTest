@@ -12,6 +12,7 @@ import com.activeMq.spring.service.ProducerService;
 
 @Component
 public class MainController {
+	
 	@Autowired
 	@Qualifier("queue")
 	private ProducerService producerService_queue;
@@ -36,23 +37,26 @@ public class MainController {
 
 	private void runQueue() {
 		new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
 				while(true){
 					int num = count.incrementAndGet();
 					// 发送更新数据请求
 					producerService_queue.sendMessage(destinationQueueName, "my name is lijin, produce:" + num);
+					producerService_queue.sendMessage("test.queue.log", "my name is lijin-log, produce:" + num);
 					
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(1);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
+				
 			}
 		}).start();
 	}
+	
+	
 	
 	private void runTopic() {
 		new Thread(new Runnable() {
