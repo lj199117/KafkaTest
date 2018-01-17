@@ -7,6 +7,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * 虚拟topic
+ * @author <a href="mailto:lijin@webull.com">李锦</a>
+ * @since 0.1.0
+ */
 @Component
 public class MainController2 {
 	
