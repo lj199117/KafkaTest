@@ -39,7 +39,7 @@ public class kafkaProducer extends Thread{
         Properties properties = new Properties();  
 //        properties.put("zookeeper.connect", "192.168.40.201:2181,192.168.40.202:2181,192.168.40.203:2181");//声明zk  
         properties.put("serializer.class", StringEncoder.class.getName());  
-        properties.put("metadata.broker.list", "192.168.40.203:9097");// 声明kafka broker  
+        properties.put("metadata.broker.list", "192.168.40.203:9097");// 声明kafka broker，这是旧版使用方法，现在采用bootstrap.servers
         return new Producer<Integer, String>(new ProducerConfig(properties));  
      }  
       
