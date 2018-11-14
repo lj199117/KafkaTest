@@ -5,10 +5,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MainControllerTest {
+public class MainController2 {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "classpath:/spring/app-prod.xml" });
-		context.getBean(MainControllerTest.class);
+		context.getBean(MainController2.class);
 	}
 }
